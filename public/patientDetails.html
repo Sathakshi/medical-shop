@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .details {
+            border: 1px solid #ddd;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+        }
+        .details h3 {
+            text-align: center;
+        }
+        .details p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .details p strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="details" id="patientDetails">
+        <h3>Patient Details</h3>
+        <p>Loading...</p>
+    </div>
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                pname: params.get('pname'),
+                patientID: params.get('patientID')
+            };
+        }
+
+        function fetchPatientDetails() {
+            const { pname, patientID } = getQueryParams();
+            let query = '';
+
+            if (pname) query += `pname=${pname}&`;
+            if (patientID) query += `patientID=${patientID}`;
+
+            fetch(`/get-patient?${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    const detailsDiv = document.getElementById('patientDetails');
+                    if (data.error) {
+                        detailsDiv.innerHTML = `<p>${data.error}</p>`;
+                    } else {
+                        detailsDiv.innerHTML = `
+                            <h3>Patient Details</h3>
+                            <p><strong>Name:</strong> ${data.name}</p>
+                            <p><strong>Gender:</strong> ${data.gender}</p>
+                            <p><strong>Age:</strong> ${data.age}</p>
+                            <p><strong>Patient ID:</strong> ${data.patientID}</p>
+                            <p><strong>Address:</strong> ${data.address}</p>
+                            <p><strong>Date:</strong> ${new Date(data.date).toLocaleDateString()}</p>
+                            <p><strong>Complaints:</strong> ${data.complaints}</p>
+                            <p><strong>Prescription:</strong> ${data.prescription}</p>
+                        `;
+                    }
+                })
+                .catch(err => {
+                    const detailsDiv = document.getElementById('patientDetails');
+                    detailsDiv.innerHTML = `<p>Error: ${err.message}</p>`;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchPatientDetails);
+    </script>
+</body>
+</html>

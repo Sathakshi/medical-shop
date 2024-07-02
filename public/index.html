@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>hpage</title>
+    <style>
+        body {
+            background-image: url("homeo.jpg");
+            height: 100px;
+            background-repeat: repeat-y;
+            background-size: cover;
+        }
+        #div1, #div2, #div3, #div4 {
+            width: 25%;
+            float: left;
+            margin-top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <h1><strong><i><center>SREE VIBHU HOMEO CLINIC</i></strong></h1><hr>
+    <form action="/submit" method="POST" id="myform">
+        <div id="div3">
+            <label for="sex"><h3><b>Sex:</b></h3></label>
+            <input type="radio" id="sex" name="gender" value="Male" required>Male
+            <input type="radio" name="gender" value="Female">Female
+        </div>
+        <div id="div1">
+            <label for="pname"><h3><b>Patient Name:</b></h3></label>
+            <input type="text" id="pname" name="pname" required>
+        </div>
+        <div id="div2">
+            <label for="age"><h3><b>Age:</b></h3></label>
+            <input type="number" id="age" name="age" required>
+        </div>
+        <div id="div4">
+            <label for="patientID"><h3><b>Patient ID:</b></h3></label>
+            <input type="number" id="patientID" name="patientID" value="0" min="0" required>
+        </div>
+        <label for="add"><h3><b>Address:</b></h3></label>
+        <textarea id="add" name="add" rows="4" cols="40" required></textarea>
+        <label for="birthday"><h3><b>Date:</b></h3></label>
+        <input type="date" id="one" name="date" required>
+        <label for="comp"><h3><b>Patient complaints:</b></h3></label>
+        <textarea id="comp" name="comp" rows="7" cols="40" required></textarea>
+        <label for="presc"><h3><b>Prescription:</b></h3></label>
+        <textarea id="presc" name="presc" rows="7" cols="40" required></textarea> 
+        <br><br>
+        <input type="reset" value="Reset">
+        <input type="submit" value="Submit">
+    </form>
+    <div>
+        <h3>Get Patient Details:</h3>
+        <label for="searchPname"><b>Patient Name:</b></label>
+        <input type="text" id="searchPname">
+        <label for="searchPatientID"><b>Patient ID:</b></label>
+        <input type="number" id="searchPatientID">
+        <button type="button" onclick="redirectToDetails()">Get Patient Details</button>
+    </div>
+    <div id="patientDetails"></div>
+
+    <script>
+        function redirectToDetails() {
+            const pname = document.getElementById('searchPname').value;
+            const patientID = document.getElementById('searchPatientID').value;
+            let query = '';
+
+            if (pname) query += `pname=${pname}&`;
+            if (patientID) query += `patientID=${patientID}`;
+
+            window.location.href = `/patientDetails.html?${query}`;
+        }
+    </script>
+</body>
+</html>
