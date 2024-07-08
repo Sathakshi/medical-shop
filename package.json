@@ -1,7 +1,14 @@
 {
+  "name": "patient-management",
+  "version": "1.0.0",
+  "main": "api/server.js",
+  "scripts": {
+    "start": "node api/server.js"
+  },
   "dependencies": {
-    "body-parser": "^1.20.2",
-    "express": "^4.19.2",
-    "mongoose": "^8.4.1"
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.3",
+    "dotenv": "^8.2.0"
   }
 }
