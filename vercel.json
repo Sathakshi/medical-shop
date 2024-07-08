@@ -1,24 +1,9 @@
 {
     "version": 2,
-    "builds": [
-      {
-        "src": "api/server.js",
-        "use": "@vercel/node"
-      },
-      {
-        "src": "public/index.html",
-        "use": "@vercel/static"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/api/(.*)",
-        "dest": "/api/server.js"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/public/index.html"
-      }
-    ]
+    "builds": [{ "src": "api/patient/index.js", "use": "@vercel/node" }],
+    "routes": [{ "src": "/api/patient/(.*)", "dest": "api/patient/index.js" }],
+    "env": {
+      "MONGODB_URI": "mongodb+srv://sathakshipokuri:Qeijt3ag6IcmjyKr@cluster0.plyjfnc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    }
   }
   
